@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="FRPG.games — The Forever RPG: system-agnostic, multiversal, modular VTT asset creator. Create 3D miniatures, tiles, and animated sprites for virtual tabletop games." />
+  <title>FRPG.games — VTT Asset Creator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ── Navigation ─────────────────────────────────────────────── -->
+  <nav>
+    <span class="brand">⬡ FRPG.games</span>
+    <ul>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#systems">Game Systems</a></li>
+      <li><a href="#tech">Technology</a></li>
+      <li><a href="#extension">Extension</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── Hero ───────────────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1>The Forever RPG</h1>
+      <p class="tagline">
+        System-agnostic, multiversal, modular VTT asset creator.
+        Build 3D miniatures, tiles, and animated sprites — entirely in the browser.
+      </p>
+      <div class="cta-group">
+        <a href="src/editor/editor.html" class="btn-primary">Open Editor</a>
+        <a href="#extension" class="btn-secondary">Get Extension</a>
+      </div>
+      <p class="note">
+        Full features require the <a href="#extension">browser extension</a>.
+        The editor above is a live demo.
+      </p>
+    </div>
+    <!-- Live SNG canvas demo -->
+    <div class="hero-demo">
+      <canvas id="demo-canvas" width="256" height="256"></canvas>
+      <p class="demo-label">Live SNG render — <span id="demo-system">D&amp;D SRD 5.2.1</span></p>
+    </div>
+  </header>
+
+  <!-- ── Features ───────────────────────────────────────────────── -->
+  <section id="features">
+    <h2>Features</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h3>Scriptable Network Graphics (SNG)</h3>
+        <p>
+          Create 2D tiles and isometric 3D cubes programmatically using SNG — a
+          scriptable graphics engine that produces PNG and APNG output without
+          requiring a full rendering pipeline.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <h3>Prolog Game Logic</h3>
+        <p>
+          A built-in Prolog engine evaluates game rules in real time.  Query
+          attack modifiers, spell slot counts, saving throw DCs, or any game
+          mechanic directly from the editor.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">⬡</div>
+        <h3>Hex &amp; 3D Polyhedra</h3>
+        <p>
+          Go beyond square grids.  Design maps using hexagonal tiles or 3D
+          polyhedron honeycombs.  Miniatures render correctly for any view:
+          top-down, isometric, or perspective.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎞</div>
+        <h3>Animated Sprites (APNG)</h3>
+        <p>
+          Animate your assets frame by frame.  Frames are assembled into Animated
+          PNG (APNG) files using <code>apngasm</code> compiled to WebAssembly,
+          running in a Cloudflare Worker for browser-side assembly.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">☁</div>
+        <h3>Cloudflare Worker Backend</h3>
+        <p>
+          Heavy processing — such as multi-frame APNG assembly — runs in a
+          Cloudflare Worker.  No server installation required.  Assets stay
+          private in your extension storage.
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔌</div>
+        <h3>Browser Extension</h3>
+        <p>
+          The extension (Manifest V3, Chrome &amp; Firefox) gives you persistent
+          asset storage, Cloudflare Worker access, and seamless integration with
+          the frpg.games editor even when offline.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Game Systems ───────────────────────────────────────────── -->
+  <section id="systems">
+    <h2>Game Systems</h2>
+    <p class="section-intro">
+      FRPG.games is system-agnostic at its core.  Game-specific rules are
+      loaded as Prolog rule sets.  Currently supported:
+    </p>
+    <div class="systems-grid">
+      <div class="system-card">
+        <h3>D&amp;D SRD 5.2.1</h3>
+        <span class="badge badge-cc">CC BY 4.0</span>
+        <p>
+          Dungeons &amp; Dragons 5th Edition System Reference Document (SRD 5.2.1)
+          published by Wizards of the Coast under Creative Commons Attribution 4.0.
+        </p>
+        <ul>
+          <li>Ability modifiers &amp; proficiency bonuses</li>
+          <li>Attack rolls, saving throws, critical hits</li>
+          <li>Spell slot tables (levels 1–11)</li>
+          <li>Combat conditions, cover, exhaustion</li>
+          <li>14 creature types with combat shapes</li>
+        </ul>
+      </div>
+      <div class="system-card">
+        <h3>Pathfinder 2e</h3>
+        <span class="badge badge-orc">ORC License</span>
+        <p>
+          Pathfinder Second Edition by Paizo Inc., published under the ORC
+          (Open RPG Creative) License.
+        </p>
+        <ul>
+          <li>Proficiency ranks (Untrained → Legendary)</li>
+          <li>4-degree success system (crit success/fail)</li>
+          <li>3-action economy</li>
+          <li>Multiple Attack Penalty (MAP &amp; Agile)</li>
+          <li>10 ancestries with combat templates</li>
+        </ul>
+      </div>
+      <div class="system-card">
+        <h3>Black Flag RPG</h3>
+        <span class="badge badge-cc">CC BY 4.0</span>
+        <p>
+          Black Flag Roleplaying by Kobold Press, published under Creative
+          Commons Attribution 4.0.
+        </p>
+        <ul>
+          <li>Fortune Die mechanic</li>
+          <li>Lineages &amp; Heritages</li>
+          <li>Talents system</li>
+          <li>Familiar D&amp;D-compatible mechanics</li>
+          <li>8 lineages with speed &amp; size data</li>
+        </ul>
+      </div>
+    </div>
+    <p class="section-outro">
+      Additional systems can be added by loading a Prolog rule file.
+      The engine is designed to support any ORC, CC, or similarly licensed system.
+    </p>
+  </section>
+
+  <!-- ── Technology ─────────────────────────────────────────────── -->
+  <section id="tech">
+    <h2>Technology</h2>
+    <div class="tech-grid">
+      <div>
+        <h3>SNG Pipeline</h3>
+        <pre><code>SNG Script (JSON)
+  → SngBuffer (RGBA pixels)
+    → OffscreenCanvas
+      → PNG (ArrayBuffer)
+        → APNG (via Worker)</code></pre>
+      </div>
+      <div>
+        <h3>Prolog Query Example</h3>
+        <pre><code>% Query proficiency bonus at level 5
+?- proficiency_bonus(5, B).
+B = 3.
+
+% Fireball spell slot check
+?- spell_slots(7, 3, S).
+S = 3.</code></pre>
+      </div>
+      <div>
+        <h3>Cloudflare Worker</h3>
+        <pre><code>POST /apng
+  form: frame0.png, frame1.png…
+  form: delays=[100,100,…]
+  form: loops=0
+→ animation.apng</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Extension ──────────────────────────────────────────────── -->
+  <section id="extension">
+    <h2>Browser Extension</h2>
+    <p>
+      The FRPG.games browser extension unlocks full functionality:
+    </p>
+    <ul class="ext-list">
+      <li>💾 Persistent asset storage (chrome.storage)</li>
+      <li>☁ APNG assembly via Cloudflare Worker</li>
+      <li>🔗 Seamless sync between editor and frpg.games</li>
+      <li>⌨ Keyboard shortcut: <kbd>Ctrl+Shift+E</kbd> to open editor</li>
+    </ul>
+    <p>
+      To install manually (developer mode):
+    </p>
+    <ol>
+      <li>Clone / download this repository</li>
+      <li>Open <code>chrome://extensions</code></li>
+      <li>Enable "Developer mode"</li>
+      <li>Click "Load unpacked" and select the repository folder</li>
+    </ol>
+    <div id="ext-status">
+      Checking for extension…
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <p>
+      FRPG.games is built on open-licensed content:
+      <a href="https://media.wizards.com/2023/downloads/dnd/SRD_CC_v5.1.pdf" target="_blank" rel="noopener">D&amp;D SRD 5.2.1 (CC BY 4.0)</a>,
+      <a href="https://paizo.com/orclicense" target="_blank" rel="noopener">Pathfinder 2e (ORC)</a>,
+      <a href="https://koboldpress.com/black-flag-roleplaying/" target="_blank" rel="noopener">Black Flag RPG (CC BY 4.0)</a>.
+    </p>
+    <p>
+      This product is not affiliated with or endorsed by Wizards of the Coast,
+      Paizo Inc., or Kobold Press.
+    </p>
+    <p style="margin-top:8px;color:#444">
+      © 2025 FRPG.games — Released under the ORC License for game content,
+      Apache 2.0 for code.
+    </p>
+  </footer>
+
+  <script type="module" src="site.js"></script>
+</body>
+</html>

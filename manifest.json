@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "FRPG.games — VTT Asset Creator",
+  "version": "0.1.0",
+  "description": "Create 3D VTT assets for system-agnostic virtual tabletop play. Supports D&D SRD 5.2.1, Pathfinder ORC, and Black Flag RPG.",
+  "homepage_url": "https://frpg.games",
+  "icons": {
+    "16":  "icons/icon16.png",
+    "32":  "icons/icon32.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_title": "FRPG.games Asset Creator",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "32":  "icons/icon32.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background/service-worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://frpg.games/*"],
+      "js": ["src/content/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/editor/editor.html",
+        "src/editor/editor.css",
+        "src/core/*",
+        "src/systems/*"
+      ],
+      "matches": ["https://frpg.games/*", "<all_urls>"]
+    }
+  ],
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://frpg.games/*",
+    "https://*.frpg.games/*"
+  ],
+  "commands": {
+    "open-editor": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Open VTT Asset Editor"
+    }
+  }
+}
