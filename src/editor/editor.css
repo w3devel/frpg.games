@@ -1,0 +1,316 @@
+/* ─── Reset & base ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-dark:   #1a1a2e;
+  --bg-mid:    #16213e;
+  --bg-light:  #0f3460;
+  --accent:    #e94560;
+  --accent2:   #f5a623;
+  --text:      #e0e0e0;
+  --text-muted:#9090a0;
+  --border:    #2a2a4a;
+  --panel-w:   200px;
+  --topbar-h:  44px;
+  --footer-h:  48px;
+  --font: 'Segoe UI', system-ui, sans-serif;
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg-dark);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  overflow: hidden;
+}
+
+/* ─── Top Bar ───────────────────────────────────────────────────────────── */
+#topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: var(--topbar-h);
+  padding: 0 12px;
+  background: var(--bg-mid);
+  border-bottom: 1px solid var(--border);
+  user-select: none;
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent2);
+  margin-right: 12px;
+  letter-spacing: 0.03em;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.toolbar button {
+  padding: 4px 10px;
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.toolbar button:hover { background: var(--accent); color: #fff; }
+
+.toolbar select, .toolbar label {
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 6px;
+  font-size: 12px;
+}
+
+.sep { color: var(--border); margin: 0 4px; }
+
+#status-bar {
+  margin-left: auto;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+
+/* ─── Main Layout ───────────────────────────────────────────────────────── */
+#workspace {
+  display: flex;
+  height: calc(100vh - var(--topbar-h) - var(--footer-h));
+  overflow: hidden;
+}
+
+/* ─── Side Panels ───────────────────────────────────────────────────────── */
+aside {
+  width: var(--panel-w);
+  background: var(--bg-mid);
+  border-right: 1px solid var(--border);
+  padding: 10px 8px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#panel-props { border-left: 1px solid var(--border); border-right: none; }
+
+aside h2 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin: 8px 0 4px;
+}
+
+aside label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+aside input[type="text"],
+aside input[type="number"],
+aside select,
+aside textarea {
+  width: 100%;
+  background: var(--bg-dark);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 4px 6px;
+  font-size: 12px;
+}
+
+aside input[type="color"] {
+  width: 32px;
+  height: 24px;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: none;
+}
+
+aside button {
+  width: 100%;
+  padding: 5px 8px;
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  text-align: left;
+}
+
+aside button:hover { background: var(--accent); color: #fff; }
+aside hr { border-color: var(--border); }
+
+/* ─── Tool palette ──────────────────────────────────────────────────────── */
+button.tool {
+  width: 36px !important;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin: 2px;
+  padding: 0 !important;
+  text-align: center !important;
+}
+
+button.tool.active {
+  background: var(--accent) !important;
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* ─── Viewport (canvas area) ────────────────────────────────────────────── */
+#viewport {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-conic-gradient(#222 0% 25%, #1a1a1a 0% 50%)
+              0 0 / 16px 16px;
+  overflow: hidden;
+}
+
+#main-canvas, #overlay-canvas {
+  position: absolute;
+  image-rendering: pixelated;
+  cursor: crosshair;
+  border: 1px solid var(--border);
+}
+
+#overlay-canvas { pointer-events: none; }
+
+/* ─── Layer list ────────────────────────────────────────────────────────── */
+#layer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+}
+
+#layer-list li {
+  padding: 4px 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  border: 1px solid transparent;
+}
+
+#layer-list li:hover { background: var(--bg-light); }
+#layer-list li.active { border-color: var(--accent); }
+
+/* ─── Prolog result ─────────────────────────────────────────────────────── */
+#prolog-result {
+  background: var(--bg-dark);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 6px;
+  font-size: 11px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: var(--accent2);
+  min-height: 40px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+/* ─── Frame strip ───────────────────────────────────────────────────────── */
+#frame-strip {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  max-height: 120px;
+}
+
+.frame-thumb {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.frame-thumb.active { border-color: var(--accent); }
+
+/* ─── Footer / timeline ─────────────────────────────────────────────────── */
+#timeline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: var(--footer-h);
+  padding: 0 16px;
+  background: var(--bg-mid);
+  border-top: 1px solid var(--border);
+}
+
+#timeline button {
+  padding: 4px 12px;
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#timeline button:hover { background: var(--accent); }
+
+#frame-indicator {
+  font-size: 12px;
+  color: var(--text-muted);
+  min-width: 48px;
+}
+
+/* ─── Modal ─────────────────────────────────────────────────────────────── */
+dialog {
+  background: var(--bg-mid);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 320px;
+}
+
+dialog h2 { margin-bottom: 12px; }
+
+#asset-list {
+  list-style: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#asset-list li {
+  padding: 6px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+#asset-list li:hover { background: var(--bg-light); border-color: var(--accent); }
+
+dialog button {
+  margin-top: 12px;
+  padding: 6px 16px;
+  background: var(--bg-light);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+dialog::backdrop { background: rgba(0,0,0,0.6); }

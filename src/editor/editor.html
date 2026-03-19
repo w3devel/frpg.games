@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRPG.games — VTT Asset Editor</title>
+  <link rel="stylesheet" href="editor.css" />
+</head>
+<body>
+  <!-- ── Top Bar ─────────────────────────────────────────────────── -->
+  <header id="topbar">
+    <span class="logo">⬡ FRPG.games</span>
+    <nav class="toolbar">
+      <button id="btn-new"     title="New asset (Ctrl+N)">New</button>
+      <button id="btn-save"    title="Save asset (Ctrl+S)">Save</button>
+      <button id="btn-load"    title="Load asset">Load</button>
+      <button id="btn-export-png"  title="Export PNG">PNG</button>
+      <button id="btn-export-apng" title="Export APNG (animated)">APNG</button>
+      <span class="sep">|</span>
+      <label for="sel-system">System:</label>
+      <select id="sel-system">
+        <option value="srd521">D&amp;D SRD 5.2.1</option>
+        <option value="pathfinder2e">Pathfinder 2e (ORC)</option>
+        <option value="blackflag">Black Flag RPG</option>
+      </select>
+      <span class="sep">|</span>
+      <label for="sel-mode">Mode:</label>
+      <select id="sel-mode">
+        <option value="tile2d">2D Tile</option>
+        <option value="cube3d">3D Cube</option>
+        <option value="hex">Hex Grid</option>
+        <option value="mini">Miniature</option>
+      </select>
+    </nav>
+    <span id="status-bar">Ready</span>
+  </header>
+
+  <!-- ── Main Layout ─────────────────────────────────────────────── -->
+  <main id="workspace">
+
+    <!-- Left panel: tool palette -->
+    <aside id="panel-tools">
+      <h2>Tools</h2>
+      <button class="tool active" data-tool="select"  title="Select">&#9654;</button>
+      <button class="tool"        data-tool="fill"    title="Fill">&#9632;</button>
+      <button class="tool"        data-tool="stroke"  title="Stroke">&#9633;</button>
+      <button class="tool"        data-tool="circle"  title="Circle">&#9675;</button>
+      <button class="tool"        data-tool="line"    title="Line">&#8213;</button>
+      <button class="tool"        data-tool="hex"     title="Hex">&#11042;</button>
+      <button class="tool"        data-tool="cube"    title="3D Cube">&#9643;</button>
+      <hr />
+      <h2>Colour</h2>
+      <input type="color" id="colour-fg" value="#4a7c2f" title="Foreground colour" />
+      <label for="colour-fg">Fill</label>
+      <input type="color" id="colour-bg" value="#2d5a1b" title="Background / stroke colour" />
+      <label for="colour-bg">Stroke</label>
+      <hr />
+      <h2>Size</h2>
+      <label for="inp-size">Tile px:</label>
+      <input type="number" id="inp-size" value="64" min="8" max="512" step="8" />
+      <label for="inp-stroke">Stroke w:</label>
+      <input type="number" id="inp-stroke" value="2" min="1" max="16" />
+      <hr />
+      <h2>Animation</h2>
+      <label for="inp-delay">Frame ms:</label>
+      <input type="number" id="inp-delay" value="100" min="10" max="5000" />
+      <button id="btn-add-frame">+ Frame</button>
+      <button id="btn-del-frame">− Frame</button>
+      <div id="frame-strip"></div>
+    </aside>
+
+    <!-- Centre: canvas viewport -->
+    <section id="viewport">
+      <canvas id="main-canvas" width="512" height="512">
+        Your browser does not support HTML5 Canvas.
+      </canvas>
+      <!-- Overlay for combat shapes / grid -->
+      <canvas id="overlay-canvas" width="512" height="512"></canvas>
+    </section>
+
+    <!-- Right panel: properties + Prolog query -->
+    <aside id="panel-props">
+      <h2>Asset</h2>
+      <label for="inp-name">Name:</label>
+      <input type="text" id="inp-name" value="New Tile" placeholder="Asset name" />
+
+      <label for="inp-id">ID:</label>
+      <input type="text" id="inp-id" readonly placeholder="(auto)" />
+
+      <h2>Layers</h2>
+      <ul id="layer-list"></ul>
+      <button id="btn-add-layer">+ Layer</button>
+      <button id="btn-del-layer">− Layer</button>
+
+      <h2>Game Logic</h2>
+      <label for="inp-prolog">Prolog query:</label>
+      <input type="text" id="inp-prolog" placeholder="ability_modifier(16, M)" />
+      <button id="btn-query">Query</button>
+      <pre id="prolog-result"></pre>
+
+      <h2>Combat Shape</h2>
+      <label for="sel-shape">Shape:</label>
+      <select id="sel-shape">
+        <option value="">— none —</option>
+        <option value="melee_reach">Melee Reach</option>
+        <option value="fireball">Fireball (20 ft)</option>
+        <option value="cone_15">Cone (15 ft)</option>
+        <option value="lightning_bolt">Lightning Bolt (100 ft)</option>
+        <option value="spirit_guardians">Spirit Guardians</option>
+        <option value="move_standard">Standard Move</option>
+      </select>
+      <button id="btn-show-shape">Show</button>
+    </aside>
+
+  </main>
+
+  <!-- ── Frame timeline ──────────────────────────────────────────── -->
+  <footer id="timeline">
+    <span>Frame:</span>
+    <span id="frame-indicator">1 / 1</span>
+    <button id="btn-prev-frame">◀</button>
+    <button id="btn-play">▶ Play</button>
+    <button id="btn-next-frame">▶</button>
+  </footer>
+
+  <!-- ── Asset list modal ─────────────────────────────────────────── -->
+  <dialog id="modal-assets">
+    <h2>Saved Assets</h2>
+    <ul id="asset-list"></ul>
+    <form method="dialog">
+      <button>Close</button>
+    </form>
+  </dialog>
+
+  <script type="module" src="editor.js"></script>
+</body>
+</html>

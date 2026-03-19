@@ -1,0 +1,36 @@
+{
+  "name": "frpg-games",
+  "version": "0.1.0",
+  "description": "The Forever RPG: System-agnostic, multiversal, modular VTT asset creator",
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "build": "node scripts/build.js",
+    "lint": "eslint src tests --ext .js",
+    "dev": "node scripts/dev.js"
+  },
+  "keywords": [
+    "vtt",
+    "tabletop",
+    "rpg",
+    "3d",
+    "sng",
+    "browser-extension",
+    "d&d",
+    "pathfinder",
+    "black-flag"
+  ],
+  "license": "ORC",
+  "devDependencies": {
+    "eslint": "^9.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "transform": {},
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}
