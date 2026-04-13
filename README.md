@@ -1,5 +1,6 @@
-# frpg.games
-The Forever RPG: System-agnostic, multiversal, modular VTT asset creator
+# Fantasy Roleplaying Games | frpg.games
+
+System-agnostic, multiversal, modular VTT content creation tools.
 
 ## Overview
 
